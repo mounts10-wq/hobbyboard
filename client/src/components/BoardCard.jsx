@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function BoardCard({ board, onDeleteBoard }) {
   return (
     <article className="board-card">
@@ -8,6 +10,10 @@ function BoardCard({ board, onDeleteBoard }) {
       </div>
 
       <div className="board-card-actions">
+        <Link to={`/boards/${board.id}`} className="view-button">
+          View Tasks
+        </Link>
+
         <button className="danger-button" onClick={() => onDeleteBoard(board.id)}>
           Delete
         </button>

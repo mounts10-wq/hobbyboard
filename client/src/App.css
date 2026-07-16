@@ -258,3 +258,133 @@ body {
 .danger-button:hover {
   background: #b91c1c;
 }
+
+.view-button {
+  background: #16a34a;
+  color: white;
+  padding: 0.65rem 0.9rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.view-button:hover {
+  background: #15803d;
+}
+
+.board-card-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #2563eb;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.board-detail-header {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
+}
+
+.board-detail-header h1 {
+  margin-top: 0;
+}
+
+.task-form {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.task-form h2 {
+  margin-top: 0;
+}
+
+.task-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: bold;
+}
+
+.task-form input,
+.task-form textarea,
+.task-form select,
+.task-card select {
+  padding: 0.7rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.task-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.task-form button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.task-form button:hover {
+  background: #1d4ed8;
+}
+
+.task-section {
+  margin-top: 2rem;
+}
+
+.task-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.task-card {
+  background: white;
+  padding: 1.25rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.task-card h3 {
+  margin-top: 0;
+}
+
+.task-controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+.task-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: bold;
+}
