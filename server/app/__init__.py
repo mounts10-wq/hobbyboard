@@ -18,6 +18,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     jwt.init_app(app)
+    from . import models
 
     from .routes import api
     app.register_blueprint(api, url_prefix="/api")
