@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
 import BoardDetails from "./pages/BoardDetails";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -17,8 +18,22 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/boards/:boardId" element={<BoardDetails />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+              path="/boards/:boardId"
+              element={
+                <ProtectedRoute>
+                  <BoardDetails />
+                </ProtectedRoute>
+              }
+            />
         </Routes>
       </main>
     </>
