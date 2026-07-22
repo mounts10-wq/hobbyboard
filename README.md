@@ -19,6 +19,7 @@ Target users include makers, builders, and creatives working on projects like ca
 - Full CRUD for boards
 - Full CRUD for tasks
 - Pagination support on list endpoints
+- Protected frontend routes for dashboard and board details
 - Responsive frontend with polished visual states
 
 ## Tech Stack
@@ -49,6 +50,10 @@ Target users include makers, builders, and creatives working on projects like ca
 
 All backend routes are served under /api.
 
+### Utility
+
+- GET /api/health
+
 ### Auth
 
 - POST /api/signup
@@ -77,23 +82,23 @@ All backend routes are served under /api.
 - /
 - /signup
 - /login
-- /dashboard
-- /boards/:boardId
+- /dashboard (protected)
+- /boards/:boardId (protected)
 
 ## Local Setup
 
 ### 1. Clone and enter project
 
 ```bash
-git clone <this-repo-url>
+git clone https://github.com/mounts10-wq/projectboard.git
 cd projectboard
 ```
 
-### 2. Backend setup
+### 2. Backend setup (one-time)
 
 ```bash
 cd server
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
@@ -106,26 +111,54 @@ JWT_SECRET_KEY=dev-jwt-secret-key
 DATABASE_URL=sqlite:///projectboard.db
 ```
 
-Run migrations and start API:
+Run migrations once:
 
 ```bash
 flask --app run.py db upgrade
-python run.py
 ```
 
-Backend runs at http://127.0.0.1:5000
+### 3. Frontend setup (one-time)
 
-### 3. Frontend setup
+Open a new terminal:
 
 ```bash
-cd ../client
+cd projectboard/client
 npm install
+```
+
+### 4. Run the app (each time)
+
+Terminal 1 (backend):
+
+```bash
+cd projectboard/server
+source venv/bin/activate
+flask --app run.py db upgrade
+python3 run.py
+```
+
+Terminal 2 (frontend):
+
+```bash
+cd projectboard/client
 npm run dev
 ```
 
+Backend runs at http://127.0.0.1:5000
 Frontend runs at http://127.0.0.1:5173
 
-Note: client/src/services/api.js currently points to http://127.0.0.1:5000/api.
+
+### Troubleshooting
+
+- If flask is not found, reactivate the backend virtual environment with source venv/bin/activate.
+- If port 5000 is in use, stop the other process or run backend on a different port and update client/src/services/api.js.
+- Stop both servers with Ctrl+C.
+
+## Auth Notes
+
+- The frontend stores the JWT in localStorage after signup/login.
+- Logout on the frontend clears the stored JWT and user state.
+- The backend also exposes POST /api/logout as a helper route, but token removal is handled in the client.
 
 ## Submission Checklist
 
