@@ -313,6 +313,71 @@ p {
   color: var(--text-soft);
 }
 
+.insights-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  padding: 1.15rem 1.2rem;
+  margin-bottom: 1.5rem;
+  animation: fade-slide-up 360ms ease-out both;
+}
+
+.insights-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.7rem;
+}
+
+.insights-header h2 {
+  font-size: 1.15rem;
+}
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  background: #eadfd4;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 0.2rem 0 0.95rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0f766e, #2f855a);
+  border-radius: 999px;
+  transition: width 260ms ease;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 0.65rem;
+}
+
+.stat-card {
+  background: var(--surface-soft);
+  border: 1px solid #e2d2c3;
+  border-radius: 10px;
+  padding: 0.7rem 0.75rem;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-soft);
+  margin-bottom: 0.2rem;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--brand-strong);
+}
+
 .board-form,
 .task-form,
 .board-detail-header {
@@ -555,6 +620,7 @@ p {
   .hero,
   .form-page,
   .board-form,
+  .insights-panel,
   .board-card,
   .board-detail-header,
   .task-form,
@@ -628,6 +694,7 @@ p {
 
   .form-page,
   .board-form,
+  .insights-panel,
   .task-form,
   .board-detail-header,
   .board-card,

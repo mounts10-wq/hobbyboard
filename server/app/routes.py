@@ -93,6 +93,35 @@ def logout():
     }), 200
 
 
+@api.route("/dashboard/stats", methods=["GET"])
+@jwt_required()
+def get_dashboard_stats():
+    user_id = int(get_jwt_identity())
+
+    board_count = Board.query.filter_by(user_id=user_id).count()
+
+    user_tasks = Task.query.join(Board).filter(Board.user_id == user_id)
+    total_tasks = user_tasks.count()
+    completed_tasks = user_tasks.filter(Task.status == "Complete").count()
+    in_progress_tasks = user_tasks.filter(Task.status == "In Progress").count()
+    not_started_tasks = user_tasks.filter(Task.status == "Not Started").count()
+    high_priority_tasks = user_tasks.filter(Task.priority == "High").count()
+
+    completion_rate = round((completed_tasks / total_tasks) * 100, 1) if total_tasks else 0
+
+    return jsonify({
+        "stats": {
+            "board_count": board_count,
+            "task_count": total_tasks,
+            "completed_tasks": completed_tasks,
+            "in_progress_tasks": in_progress_tasks,
+            "not_started_tasks": not_started_tasks,
+            "high_priority_tasks": high_priority_tasks,
+            "completion_rate": completion_rate
+        }
+    }), 200
+
+
 @api.route("/boards", methods=["GET"])
 @jwt_required()
 def get_boards():

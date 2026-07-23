@@ -10,9 +10,20 @@ function Dashboard() {
   const [boards, setBoards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [statsLoading, setStatsLoading] = useState(true);
+  const [stats, setStats] = useState({
+    board_count: 0,
+    task_count: 0,
+    completed_tasks: 0,
+    in_progress_tasks: 0,
+    not_started_tasks: 0,
+    high_priority_tasks: 0,
+    completion_rate: 0,
+  });
 
   useEffect(() => {
     fetchBoards();
+    fetchStats();
   }, []);
 
   async function fetchBoards() {
@@ -26,6 +37,27 @@ function Dashboard() {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function fetchStats() {
+    setStatsLoading(true);
+
+    try {
+      const data = await apiRequest("/dashboard/stats");
+      setStats(data.stats);
+    } catch (err) {
+      setStats({
+        board_count: 0,
+        task_count: 0,
+        completed_tasks: 0,
+        in_progress_tasks: 0,
+        not_started_tasks: 0,
+        high_priority_tasks: 0,
+        completion_rate: 0,
+      });
+    } finally {
+      setStatsLoading(false);
     }
   }
    
@@ -46,6 +78,7 @@ function Dashboard() {
     });
 
     setBoards([data.board, ...boards]);
+    fetchStats();
   }
 
   async function handleDeleteBoard(boardId) {
@@ -63,6 +96,7 @@ function Dashboard() {
       });
 
       setBoards(boards.filter((board) => board.id !== boardId));
+      fetchStats();
     } catch (err) {
       setError(err.message);
     }
@@ -76,6 +110,55 @@ function Dashboard() {
           <p>Welcome, {user?.username}. Create boards to organize your projects.</p>
         </div>
       </div>
+
+      <section className="insights-panel">
+        <div className="insights-header">
+          <h2>Progress Snapshot</h2>
+          {!statsLoading && (
+            <span className="count-pill">{stats.completion_rate}% complete</span>
+          )}
+        </div>
+
+        {statsLoading ? (
+          <p className="loading-message">Loading your stats...</p>
+        ) : (
+          <>
+            <div className="progress-track" role="img" aria-label="Task completion progress">
+              <div
+                className="progress-fill"
+                style={{ width: `${Math.min(stats.completion_rate, 100)}%` }}
+              />
+            </div>
+
+            <div className="stats-grid">
+              <article className="stat-card">
+                <p className="stat-label">Boards</p>
+                <p className="stat-value">{stats.board_count}</p>
+              </article>
+              <article className="stat-card">
+                <p className="stat-label">Total Tasks</p>
+                <p className="stat-value">{stats.task_count}</p>
+              </article>
+              <article className="stat-card">
+                <p className="stat-label">Completed</p>
+                <p className="stat-value">{stats.completed_tasks}</p>
+              </article>
+              <article className="stat-card">
+                <p className="stat-label">In Progress</p>
+                <p className="stat-value">{stats.in_progress_tasks}</p>
+              </article>
+              <article className="stat-card">
+                <p className="stat-label">Not Started</p>
+                <p className="stat-value">{stats.not_started_tasks}</p>
+              </article>
+              <article className="stat-card">
+                <p className="stat-label">High Priority</p>
+                <p className="stat-value">{stats.high_priority_tasks}</p>
+              </article>
+            </div>
+          </>
+        )}
+      </section>
 
       <BoardForm onCreateBoard={handleCreateBoard} />
 

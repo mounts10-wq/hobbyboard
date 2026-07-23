@@ -12,6 +12,7 @@ Target users include makers, builders, and creatives working on projects like ca
 - Full CRUD for boards
 - Full CRUD for tasks
 - Pagination support on list endpoints
+- Dashboard reporting snapshot (boards, task totals, completion rate, priority/status counts)
 - Protected frontend routes for dashboard and board details
 - Responsive frontend with polished visual states
 
@@ -46,6 +47,7 @@ All backend routes are served under /api.
 ### Utility
 
 - GET /api/health
+- GET /api/dashboard/stats (protected)
 
 ### Auth
 
