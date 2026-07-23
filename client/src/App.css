@@ -23,7 +23,7 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: radial-gradient(circle at top, #fff8f1 0%, var(--bg) 42%, #efe5d9 100%);
   color: var(--text);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 h1,
@@ -36,7 +36,7 @@ p {
 .app-container {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 2rem 1.25rem 2.25rem;
+  padding: 2rem 1.25rem 2.6rem;
 }
 
 .navbar {
@@ -48,6 +48,10 @@ p {
   align-items: center;
   gap: 1rem;
   box-shadow: 0 4px 14px rgba(44, 29, 19, 0.32);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(4px);
 }
 
 .logo {
@@ -122,7 +126,8 @@ p {
 .hero h1 {
   font-size: clamp(1.9rem, 3.8vw, 2.45rem);
   margin-bottom: 0.9rem;
-  line-height: 1.2;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
 }
 
 .hero p {
@@ -131,6 +136,10 @@ p {
   margin: 0 auto 1.5rem;
   line-height: 1.62;
   color: rgba(255, 255, 255, 0.94);
+}
+
+.hero-actions a {
+  min-width: 132px;
 }
 
 .hero-actions {
@@ -296,6 +305,10 @@ p {
 .error-message {
   color: var(--danger);
   font-weight: 700;
+  background: #fde8e8;
+  border: 1px solid #f2b4b4;
+  border-radius: 8px;
+  padding: 0.55rem 0.65rem;
 }
 
 .dashboard-header {
@@ -396,12 +409,14 @@ p {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1rem;
+  align-items: stretch;
 }
 
 .board-card,
 .task-card {
   padding: 1.1rem;
   animation: fade-slide-up 320ms ease-out both;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
 .board-card:nth-child(2),
@@ -423,6 +438,18 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.board-card:hover,
+.task-card:hover,
+.insights-panel:hover,
+.board-detail-header:hover,
+.board-form:hover,
+.task-form:hover,
+.form-page:hover {
+  transform: translateY(-2px);
+  border-color: #d6c2af;
+  box-shadow: 0 12px 22px rgba(72, 44, 28, 0.14);
 }
 
 .board-card h3,
@@ -460,6 +487,11 @@ p {
 .task-card p,
 .board-detail-header p {
   color: #5f4f47;
+}
+
+.board-card > div p,
+.task-card > div p {
+  line-height: 1.6;
 }
 
 .board-card-actions {
@@ -605,6 +637,11 @@ p {
   margin: 0.5rem 0 1rem;
 }
 
+.loading-message {
+  border-style: solid;
+  background: #f4ede5;
+}
+
 @keyframes fade-slide-up {
   from {
     opacity: 0;
@@ -667,6 +704,20 @@ p {
   box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
 }
 
+.nav-button:active,
+.danger-button:active,
+.edit-button:active,
+.save-edit-button:active,
+.cancel-button:active,
+.auth-form button:active,
+.board-form button:active,
+.task-form button:active,
+.primary-button:active,
+.secondary-button:active,
+.view-button:active {
+  transform: translateY(0);
+}
+
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -704,5 +755,10 @@ p {
 
   .board-card-actions {
     gap: 0.5rem;
+  }
+
+  .insights-header {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
